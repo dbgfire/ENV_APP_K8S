@@ -3,3 +3,17 @@ services:
   webapp:
     build: ./Hello
     image: webapp:tag
+    ports:
+      - "8080:8080"
+    networks:
+      - overlay
+    deploy:
+      mode: replicated
+      replicas: 6
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure   
+networks:
+  overlay:
